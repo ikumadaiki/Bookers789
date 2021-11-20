@@ -1,0 +1,2 @@
+$("#favorite_btn_<%= @book.id%>").html("<%= j(render 'favorites/favorite-btn', book: @book) %>");
+<!--  先頭の $(".favorite-btn") を変更。クラス指定からタグ指定に -->

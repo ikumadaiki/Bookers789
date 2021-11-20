@@ -1,0 +1,12 @@
+$("#post_comment_<%= @book.id%>").html("<%= j(render 'post_comments/post_comment', book: @book) %>");
+<!--  先頭の $(".favorite-btn") を変更。クラス指定からタグ指定に -->
+$(".comment_area").val("");
+<!-- comment_areaクラスのコメントフォームを空白に -->
+<!-- 今回books/showのページにf.text_areaが複数存在したため、f.text_areaではなくクラスで指定。 -->
+<!-- 同じ記述が複数該当した場合、html要素ではなく、配列として認識される。-->
+<!-- .val("");はhtml要素にしか反応しないため、複数存在する場合はクラス指定するなど差別化が必要。-->
+
+
+
+<!--配列.val("");-->  <!--×-->
+<!--text_areaのhtml要素.val("");-->  <!--○-->
