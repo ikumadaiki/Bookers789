@@ -19,8 +19,7 @@ class BooksController < ApplicationController
   end
 
   def index
-    #@post_images = PostImage.allを削除。左記の場合全ての画像を表示してしまうため。
-    @books = Book.page(params[:page]).reverse_order
+    @books = Book.includes(:favorited_users).sort {|a,b| b.favorited_users.size <=> a.favorited_users.size}
     @user = current_user
     @book = Book.new
   end
