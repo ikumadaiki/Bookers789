@@ -5,7 +5,7 @@ class BooksController < ApplicationController
 
   def create
     @book = Book.new(book_params)
-    
+
     @book.user_id = current_user.id
     if @book.save
       flash[:notice] = 'You have created book successfully.'
@@ -29,6 +29,7 @@ class BooksController < ApplicationController
     @book = Book.find(params[:id])
     @new_book = Book.new
     @post_comment = PostComment.new
+    impressionist(@book, nil, unique: [:ip_address])
   end
 
   def edit
@@ -48,7 +49,7 @@ class BooksController < ApplicationController
     else
        render :edit
     end
-    
+
   end
 
   def destroy
