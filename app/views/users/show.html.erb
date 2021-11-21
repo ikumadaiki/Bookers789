@@ -1,9 +1,9 @@
 <!-- Bookers2 -->
 <main>
-  
+
   <div class='container px-5 px-sm-0'>
-   
-   
+
+
    <!--エラーメッセージここから-->
     <% if @book.errors.any? %>
     <div id="error_explanation">
@@ -16,14 +16,14 @@
     </div>
     <% end %>
    <!--エラーメッセージここまで-->
-   
-  
+
+
    <div class='row'>
      <div class='col-md-3'>
       <!-- プロフィール&投稿テンプレート -->
       <%= render 'books/list',user: @user, book: @book %>
      </div>
-     
+
      <!-- 投稿一覧 -->
      <div class='col-md-8 offset-md-1'>
        <h2>Books</h2>
@@ -59,7 +59,52 @@
            <% end %>
          </tbody>
        </table>
-       <%= paginate @books %>
+       <div class="border" style="padding:10px;">
+        <table class="table">
+          <thead>
+            <tr>
+             <th>今日の投稿</th>
+             <th>昨日の投稿</th>
+             <th>前日比</th>
+            </tr>
+            </thead>
+           <tbody>
+              <tr>
+               <td><%= @today_book.count %></td>
+               <td><%= @yesterday_book.count %></td>
+               <% if @yesterday_book.count == 0 %>
+               <td>前日の投稿はなし</td>
+               <% else %>
+                 <td><% @the_day_before =   @today_book.count / @yesterday_book.count.to_f  %>
+                 <%= (@the_day_before * 100).round %>%</td>
+               <% end %>
+               </tr>
+           </tbody>
+          </table>
+
+
+          <table class="table">
+            <thead>
+              <tr>
+               <th>今週の投稿</th>
+               <th>先週の投稿</th>
+               <th>週間比</th>
+              </tr>
+            </thead>
+           <tbody>
+              <tr>
+               <td><%= @this_week_book.count %></td>
+               <td><%= @last_week_book.count %></td>
+               <% if @last_week_book.count == 0 %>
+               <td>先週の投稿はなし</td>
+               <% else %>
+                 <td><% @the_week_before =   @this_week_book.count / @last_week_book.count.to_f  %>
+                 <%= (@the_week_before * 100).round %>%</td>
+               <% end %>
+               </tr>
+          </tbody>
+        </table>
+      </div>
      </div>
    </div>
   </div>

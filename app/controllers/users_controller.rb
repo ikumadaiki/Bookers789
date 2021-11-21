@@ -3,16 +3,20 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @books = @user.books.page(params[:page]).reverse_order
     @book = Book.new
+    @today_book =  @books.created_today
+    @yesterday_book = @books.created_yesterday
+    @this_week_book = @books.created_this_week
+    @last_week_book = @books.created_last_week
   end
-  
+
   def index
     @users = User.page(params[:page]).reverse_order
     @user = current_user
     @books = @user.books.page(params[:page]).reverse_order
     @book = Book.new
-    
+
   end
-  
+
   def edit
     @user = User.find(params[:id])
     if @user == current_user
@@ -20,9 +24,9 @@ class UsersController < ApplicationController
     else
       redirect_to user_path(current_user.id)
     end
-    
+
   end
-  
+
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
@@ -32,7 +36,7 @@ class UsersController < ApplicationController
       render :edit
     end
   end
-  
+
   def create
     @book = Book.new(book_params)
     @book.user_id = current_user.id
@@ -44,18 +48,18 @@ class UsersController < ApplicationController
       render :index
     end
   end
-  
+
   def follower
     user = User.find(params[:id])
     @users = user.followers
   end
-  
+
   def followed
     user = User.find(params[:id])
     @users = user.followeds
   end
-  
-  
+
+
   private
 
   def user_params
