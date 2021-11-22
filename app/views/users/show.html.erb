@@ -105,6 +105,59 @@
           </tbody>
         </table>
       </div>
+      <table class='table table-bordered'>
+    <h2>7日間分の投稿数</h2>
+    <thead>
+    <tr>
+      <th>6日前</th>
+      <th>5日前</th>
+      <th>4日前</th>
+    　<th>3日前</th>
+      <th>2日前</th>
+      <th>1日前</th>
+      <th>今日</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td><%= @created_6daysago %></td>
+      <td><%= @created_5daysago %></td>
+      <td><%= @created_4daysago %></td>
+      <td><%= @created_3daysago.count %></td>
+      <td><%= @created_2daysago.count %></td>
+      <td><%= @created_yesterday.count %></td>
+      <td><%= @created_today.count %></td>
+    </tr>
+    </tbody>
+</table>
+
+    <div style="width:auto">
+      <p>7日間比較</p>
+      <canvas id="mychart"></canvas>
+    </div>
+
+
+    <script>
+      var ctx = document.getElementById('mychart');
+      var myChart = new Chart(ctx, {
+      type: 'line',
+     data: {
+       labels: ['6日前', '5日前', '4日前', '3日前', '2日前', '1日前', '今日'],
+       datasets: [{
+        label: '投稿した本の数',
+        data: [<%= @created_6daysago %>, <%= @created_5daysago %>, <%= @created_4daysago %>, <%= @created_3daysago.count %>, <%= @created_2daysago.count %>, <%= @created_yesterday.count %>, <%= @created_today.count %>],
+        borderColor: '#191970',
+       }, ],
+     },
+    options: {
+      y: {
+        min: 0,
+        max: 60,
+      },
+    },
+  });
+   </script>
+
      </div>
    </div>
   </div>
