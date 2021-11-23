@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     resource :relationships, only: [:create, :destroy]
     get :follower, on: :member
     get :followed, on: :member
+    get "search", to: "users#search"
   end
   
   get '/search', to: 'searches#search'
