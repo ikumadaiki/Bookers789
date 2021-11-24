@@ -17,10 +17,13 @@ class User < ApplicationRecord
   #フォローされる側
   has_many :followeds, through: :reverse_of_relationships, source: :follower
   #フォローされている人一覧
+  has_many :group_users
+  has_many :groups, through: :group_users
   
   def following?(user)
     relationships.find_by(followed_id: user.id).present?
   end
   
   attachment :profile_image
+  
 end
