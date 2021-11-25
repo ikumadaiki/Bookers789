@@ -12,6 +12,7 @@
       <th colspan='1'></th>
       <th>グループ名</th>
       <th>紹介文</th>
+      <th>メンバー</th>
       <th colspan="2"></th>
     </tr>
   </thead>
@@ -21,11 +22,19 @@
         <td><%= @group.name %></td>
         <td><%= @group.introduction %></td>
         <td>
-          <% if @group.owner_id == current_user.id %>
-        <td><%= link_to 'Edit', edit_group_path(@group), class: "btn btn-success" %></td>
-        <% end %>
+          <% @group.users.where.not(id: @group.id).each do |user| %>
+          <%= user.name %>
+          <% end %>
         </td>
-
+        <% if @group.owner_id == current_user.id %>
+        <td><%= link_to 'Edit', edit_group_path(@group), class: "btn btn-success" %></td>
+        <% else %>
+          <% if @group.joined?(current_user) %>
+          <td><%= link_to 'Leave this group', group_group_users_path(@group), class: 'btn btn-danger', method: :delete %></td>
+          <% else %>
+          <td><%= link_to 'Join this group',group_group_users_path(@group), class: 'btn btn-success', method: :post %></td>
+          <% end %>
+        <% end %>
       </tr>
   </tbody>
 </table>

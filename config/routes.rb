@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   end
 
   get '/search', to: 'searches#search'
-  resources :groups, only: [:new, :create, :edit, :update, :index, :show]
+  resources :groups, only: [:index, :new, :create, :show, :edit, :update] do
+    resource :group_users, only: [:create, :destroy]
+  end
 
 end
