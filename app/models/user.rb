@@ -5,7 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   validates :name, length: { minimum: 2 , maximum: 20 }, uniqueness: true
   validates :introduction, length: { maximum: 50 }
-         
+
   has_many :books, dependent: :destroy
   has_many :post_comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
@@ -19,11 +19,12 @@ class User < ApplicationRecord
   #フォローされている人一覧
   has_many :group_users
   has_many :groups, through: :group_users
-  
+  has_many :inquiries, dependent: :destroy
+
   def following?(user)
     relationships.find_by(followed_id: user.id).present?
   end
-  
+
   attachment :profile_image
-  
+
 end

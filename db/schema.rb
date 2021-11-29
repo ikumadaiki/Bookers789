@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_24_021834) do
+ActiveRecord::Schema.define(version: 2021_11_29_153319) do
 
   create_table "books", force: :cascade do |t|
     t.string "title"
@@ -76,6 +76,15 @@ ActiveRecord::Schema.define(version: 2021_11_24_021834) do
     t.index ["impressionable_type", "impressionable_id", "session_hash"], name: "poly_session_index"
     t.index ["impressionable_type", "message", "impressionable_id"], name: "impressionable_type_message_index"
     t.index ["user_id"], name: "index_impressions_on_user_id"
+  end
+
+  create_table "inquiries", force: :cascade do |t|
+    t.string "title"
+    t.text "content"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_inquiries_on_user_id"
   end
 
   create_table "post_comments", force: :cascade do |t|
