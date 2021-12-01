@@ -1,9 +1,9 @@
 <!-- Bookers2 -->
 <main>
-  
+
   <div class='container px-5 px-sm-0'>
-   
-   
+
+
    <!--エラーメッセージここから-->
     <% if @book.errors.any? %>
     <div id="error_explanation">
@@ -16,14 +16,14 @@
     </div>
     <% end %>
    <!--エラーメッセージここまで-->
-   
-  
+
+
    <div class='row'>
      <div class='col-md-3'>
       <!-- プロフィール&投稿テンプレート -->
       <%= render 'books/list',user: @user, book: @book %>
      </div>
-     
+
      <!-- 投稿一覧 -->
      <div class='col-md-8 offset-md-1'>
        <h2>Books</h2>
@@ -55,6 +55,18 @@
               <p><%= "コメント数：#{book.post_comments.count}" %></p>
              </td>
              <!-- コメント数表示ここまで -->
+             <td id="star-rate-<%= book.id %>"></td>
+              <script>
+              $('#star-rate-<%= book.id %>').raty({
+                size: 36,
+                starOff:  '<%= asset_path('star-off.png') %>',
+                starOn : '<%= asset_path('star-on.png') %>',
+
+                half: true,
+                readOnly: true,
+                score: <%= book.rate %>,
+              });
+              </script>
            </tr>
            <% end %>
          </tbody>
@@ -63,4 +75,6 @@
      </div>
    </div>
   </div>
+  </div>
+
 </main>

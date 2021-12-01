@@ -1,12 +1,12 @@
 <main>
   <div class='container'>
-   
+
    <div class='row'>
      <div class='col-md-3'>
       <!-- プロフィール&投稿 -->
       <%= render 'books/list', user: @book.user,book: @new_book %>
      </div>
-     
+
      <div class='col-md-8 offset-md-1'>
        <h2>Book detail</h2>
        <!-- 投稿詳細 -->
@@ -24,13 +24,13 @@
                <% end %>
              </td>
              <td><%= @book.body %></td>
-             
+
              <!-- いいね -->
              <td class="favorite-btn" id="favorite_btn_<%= @book.id%>">
               <%= render 'favorites/favorite-btn', book: @book %>
              </td>
              <!-- いいねここまで -->
-             
+
              <!-- コメント数 -->
              <td><p>コメント件数：<%= @book.post_comments.count %></p></td>
              <!-- 編集 -->
@@ -42,11 +42,21 @@
                  <%= link_to "Destroy", book_path(@book.id), method: :delete , data: {confirm: "本当に消しますか？"}, class:"btn btn-sm btn-danger"%>
                 </td>
               <% end %>
-             <!-- 編集ここまで -->
-           </tr> 
+              <td id="star-rate-<%= @book.id %>"></td>
+          <script>
+          $('#star-rate-<%= @book.id %>').raty({
+            size: 36,
+            starOff:  '<%= asset_path('star-off.png') %>',
+            starOn : '<%= asset_path('star-on.png') %>',
+
+            readOnly: true,
+            score: <%= @book.rate %>,
+          });
+          </script>
+           </tr>
        </table>
        <!-- 投稿詳細ここまで -->
-       
+
        <!-- コメント一覧 -->
        <table class='table'>
            <tr>
@@ -67,4 +77,13 @@
      </div>
    </div>
   </div>
+  <script>
+  $(".book-evaluation").raty({
+    readOnly: true,
+    score: function(){
+      return $(this).attr("data-score");
+    },
+    path: "/assets/"
+  })
+</script>
 </main>
