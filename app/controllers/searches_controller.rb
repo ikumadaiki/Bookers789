@@ -14,7 +14,7 @@ class SearchesController < ApplicationController
 
 
   private
-  
+
   def search_for(model, content, method)
     # 選択したモデルがuserだったら
     if model == 'user'
@@ -30,7 +30,7 @@ class SearchesController < ApplicationController
         User.where('name LIKE ?', "%#{content}")
       end
     # 選択したモデルがbookだったら
-    elsif model == 'book'
+    elsif model == 'title'
       if method == 'perfect'
         Book.where(title: content)
       elsif method == 'partial'
@@ -38,9 +38,21 @@ class SearchesController < ApplicationController
       elsif method == 'forward'
         Book.where('title LIKE ?', "#{content}%")
       else
-        Book.where('title LIKE ?', "%#{content}") 
+        Book.where('title LIKE ?', "%#{content}")
+      end
+      elsif model == 'category'
+      if method == 'perfect'
+        Book.where(category: content)
+      elsif method == 'partial'
+        Book.where('category LIKE ?', "%#{content}%")
+      elsif method == 'forward'
+        Book.where('category LIKE ?', "#{content}%")
+      elsif method =='backward'
+        Book.where('category LIKE ?', "%#{content}")
+      else
+        Book.where(category: content)
       end
     end
   end
-  
+
 end

@@ -19,13 +19,16 @@ class BooksController < ApplicationController
   end
 
   def index
-    if params[:new]
+    if params[:category]
+      @books = Book.where(category:params[:category])
+    elsif params[:new]
       @books = Book.order(created_at: :desc)
     elsif params[:rate]
       @books = Book.order(rate: :desc)
     else
       @books=Book.all
     end
+
 
     @user = current_user
     @book = Book.new
@@ -67,7 +70,7 @@ class BooksController < ApplicationController
   private
 
   def book_params
-    params.require(:book).permit(:title, :body, :rate)
+    params.require(:book).permit(:title, :body, :rate, :category)
   end
 
 end

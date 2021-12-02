@@ -34,6 +34,7 @@
                <th></th>
                <th>Title</th>
                <th>Opinion</th>
+               <th>Category</th>
                <th colspan="3"></th>
              </tr>
            </thead>
@@ -53,7 +54,11 @@
                <td>
                  <%= book.body %>
                </td>
-
+               <% if book.category  %>
+               <td><%=link_to book.category, search_path(model: 'category',content: book.category) %></td>
+                <% else %>
+                <td></td>
+                <% end %>
                <!-- いいね機能 -->
                <td class="favorite-btn" id="favorite_btn_<%= book.id%>"><!-- id=内にてbook.idを指定することでページ全てのいいね欄に反映される事を防ぐ（idタグはページに１回しか使えない規則を利用） -->
                   <%= render 'favorites/favorite-btn', book: book %>

@@ -25,6 +25,10 @@
              <label for="book_opinion">Opinion</label>
              <%= f.text_area :body, autofocus: true, id:"Opinion", :class =>'form-control book_body'%>
            </div>
+           <div class="form-group">
+             <label for="book_category">Category</label>
+             <%= f.text_field :category, autofocus: true, id:"Category", :class =>'form-control book_category'%>
+           </div>
 
           <div class="form-group row" id="star">
           <%= f.label :rate,'Rate ', class:'col-md-3 col-form-label' %>
