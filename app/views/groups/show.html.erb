@@ -22,7 +22,7 @@
         <td><%= @group.name %></td>
         <td><%= @group.introduction %></td>
         <td>
-          <% @group.users.where.not(id: @group.id).each do |user| %>
+          <% @group.users.each do |user| %>
           <%= user.name %>
           <% end %>
         </td>
