@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_29_153319) do
+ActiveRecord::Schema.define(version: 2021_12_02_161554) do
 
   create_table "books", force: :cascade do |t|
     t.string "title"
@@ -19,6 +19,8 @@ ActiveRecord::Schema.define(version: 2021_11_29_153319) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "impressions_count", default: 0
+    t.integer "rate"
+    t.string "category"
   end
 
   create_table "chats", force: :cascade do |t|
